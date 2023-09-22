@@ -1,79 +1,26 @@
 # Cart-Pole-Balancing
 Balancing cartpole-v1 using Q learning
 
-CartPole Balancing with Q-Learning
-<p align="center">
-  <img src="cartpole.gif" alt="CartPole Balancing">
-</p>
-Overview
+# Overview:
 Welcome to CartPole Balancing with Q-Learning! This project showcases the power of Reinforcement Learning (RL) through Q-learning, a classic RL algorithm, to teach an agent how to balance a pole on a moving cart. Witness the magic of artificial intelligence as the agent learns to perform this seemingly simple task through trial and error.
 
-Table of Contents
-Demo
-About the Project
-Getting Started
-How it Works
-Results
-Contributing
-License
-Demo
-CartPole Balancing
+A summary of the pole cart environment is given below:
 
-Watch the agent learn and master the art of balancing CartPole!
+1. Action Space:
+The action is an ndarray with shape (1,) which can take values {0, 1} indicating pushing the cart to the left or right, respectively. Note that the velocity that is reduced or increased by the applied force is not fixed and it depends on the angle the pole is pointing. The center of gravity of the pole varies the amount of energy needed to move the cart underneath it.
 
-About the Project
-Balancing a pole on a moving cart is a classic control problem that highlights the essence of reinforcement learning. In this project, we leverage the Q-learning algorithm to teach an AI agent how to balance CartPole effectively. Here's what makes this project intriguing:
+2. Observation Space:
+The observation is an ndarray with shape (4,) with the values corresponding to the following positions and velocities:
+![image](https://github.com/kimtorl/Cart-Pole-Balancing/assets/98906571/91b1d93b-1fec-4f7c-aed3-5d225bbc168c)
 
-Reinforcement Learning: Experience the fundamentals of RL in action as the agent learns from its interactions with the environment.
+3. Reward
+Since the goal is to keep the pole upright for as long as possible, a reward of +1 for every step taken, including the termination step, is allotted.
 
-Dynamic Environment: The CartPole environment is dynamic and constantly changing, providing a challenging backdrop for the agent's learning journey.
+4. Starting State
+All observations are assigned a uniformly random value in (-0.05, 0.05).
 
-Deep Q-Learning: Dive into the world of Q-learning, a foundational RL algorithm, and see how it can be used to solve complex tasks.
-
-Visual Feedback: The project includes a visual demonstration, allowing you to witness the agent's progress in real-time.
-
-Getting Started
-To get started with CartPole Balancing with Q-Learning, follow these simple steps:
-
-Clone this repository to your local machine.
-
-bash
-Copy code
-git clone https://github.com/your-username/cartpole-q-learning.git
-Install the necessary dependencies. You may want to use a virtual environment for isolation.
-
-bash
-Copy code
-pip install -r requirements.txt
-Run the provided Jupyter Notebook or Python script to train and test the Q-learning agent.
-
-bash
-Copy code
-python cartpole_q_learning.py
-Observe the agent's progress as it learns to balance the pole on the cart.
-
-How it Works
-The Q-learning algorithm works by updating a Q-table that associates state-action pairs with their expected rewards. The agent explores the environment, learns from its actions, and gradually improves its decision-making over time. Here's a simplified overview:
-
-Initialization: Initialize the Q-table with arbitrary values.
-
-Exploration: The agent explores the environment, selecting actions based on either random exploration or the learned Q-values.
-
-Learning: Update the Q-values using the Bellman equation, which incorporates the immediate reward and the expected future rewards.
-
-Policy Improvement: The agent's policy (action selection strategy) improves as it learns better Q-values.
-
-Convergence: Continue exploration and learning until the Q-values converge to optimal values.
-
-Testing: Evaluate the trained agent's performance on the CartPole task.
-
-Results
-Witness the evolution of the agent's performance over time. Compare its initial attempts with its later, more refined balancing skills. Explore the reward curves and the agent's ability to maintain equilibrium.
-
-Contributing
-We welcome contributions from the open-source community. Feel free to open issues, suggest improvements, or submit pull requests. Let's collaborate to enhance this project and explore the exciting world of reinforcement learning together.
-
-License
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-Enjoy your journey into the world of CartPole balancing with Q-learning! Feel free to customize this README to suit your project's specific details and add any additional sections or information you find relevant.
+5. Episode End
+The episode ends if any one of the following occurs:
+Termination: Pole Angle is greater than ±12°
+Termination: Cart Position is greater than ±2.4 (center of the cart reaches the edge of the display)
+Truncation: Episode length is greater than 500.
